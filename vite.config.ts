@@ -6,7 +6,6 @@ import path from "path"
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr)
 }
-
 module.exports = defineConfig({
   plugins: [vue(), vueJsx()],
   alias: {

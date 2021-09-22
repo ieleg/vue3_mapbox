@@ -4,21 +4,28 @@ import mapbox from "mapbox-gl"
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css"
 import MapboxDraw from "@mapbox/mapbox-gl-draw"
 import MiniMap from "@/plugin/miniMap"
-import useRequset from "../../composition/useRequest"
+import useRequset from "@/composition/useRequest"
 // import LngLat from "@/plugin/LngLat"
 
-import { defineComponent, onMounted, ref, reactive } from "vue"
+import { defineComponent, onMounted, ref, reactive, watch} from "vue"
+import { useStore } from "vuex"
 import "./index.scss"
 export default defineComponent({
-  setup() {
+  props: {
+    endPos: {
+      type: Array as [number, number],
+      default: () => []
+    }
+  },
+  setup(props, context) {
     const map = ref(null)
     const walkInfo = reactive({
       steps: [],
       time: ""
     })
     const { data, get } = useRequset()
-    const token =
-      "pk.eyJ1IjoiaWVsZWciLCJhIjoiY2t0bDg0a3JnMDR4eDJ3bzVtemVqb2lrMyJ9.B49go6JT4o2VhRsTxz3uSQ"
+    const store = useStore()
+    const { token, center } = store.state
     const start: [number, number] = [120.20305951013802, 30.186618156061]
     const getSource = (mapApp: Object, geojson: any) => {
       if (mapApp.getSource("route")) {
@@ -48,14 +55,11 @@ export default defineComponent({
     const getRoute = async (end: [number, number], map: any) => {
       console.log("end", end)
 
-      await get(
-        `/directions/v5/mapbox/cycling/${start[0]},${start[1]};${end[0]},${end[1]}`,
-        {
-          geometries: "geojson",
-          access_token: token,
-          steps: true
-        }
-      )
+      await get(`${api.map.route}${start[0]},${start[1]};${end[0]},${end[1]}`, {
+        geometries: "geojson",
+        access_token: token,
+        steps: true
+      })
       console.log(data.value)
 
       if (data.value.code === "Ok") {
@@ -73,13 +77,15 @@ export default defineComponent({
         getSource(map, geojson)
       }
     }
-
-  const getPos = () => {
-    
-  }
+    watch(
+      () => props.endPos,
+      val => {
+        getRoute(val, map.value)
+      }
+    )
+    const getPos = () => {}
     onMounted(() => {
       // get the sidebar and add the instructions
-
       mapbox.accessToken = token
       // map实例也许需要放到全局状态中
       const mapApp = new mapbox.Map({
@@ -87,7 +93,7 @@ export default defineComponent({
         //设置地图样式信息
         style: "mapbox://styles/ieleg/cktp6c0641xh118kkis5ec4ew",
         // style: "mapbox://styles/mapbox/light-v10",
-        center: [120.1988, 30.1879],
+        center,
         zoom: 15.6,
         pitch: 60,
         bearing: -60
@@ -225,17 +231,19 @@ export default defineComponent({
             }
           })
         }
+        context.emit('getPos', coords)
         getRoute(coords, mapApp)
       })
-      // map.value = mapApp
+      map.value = mapApp
     })
     return () => (
       <>
         <div id="map-app"></div>
         <div id="instructions">
-          {walkInfo.time && walkInfo.steps.map(item => {
-            return <div>{item.maneuver.instruction}</div>
-          })}
+          {walkInfo.time &&
+            walkInfo.steps.map(item => {
+              return <div>{item.maneuver.instruction}</div>
+            })}
           <div>{walkInfo.time}</div>
         </div>
       </>

@@ -6,12 +6,20 @@
   transition: 0.2s;
   max-width: 1800px;
   border-radius: 10px;
-  &-tool {
+  &-search {
+    display: flex;
+    align-items: center;
+    padding-left: 22px;
+    gap: 20px;
     height: 50px;
-    width: 320px;
-    background: #fff;
+    width: 600px;
+    border-radius: 50px;
+    background-image: linear-gradient(to right, rgb(2, 2, 2,.4) 23%, transparent);
     position: absolute;
+    right: 0;
+    top: 60px;
     z-index: 1000;
+    color: #fff
     // right: 0;
   }
 }
