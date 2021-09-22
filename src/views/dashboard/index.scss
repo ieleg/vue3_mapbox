@@ -22,4 +22,11 @@
     color: #fff
     // right: 0;
   }
+  .el-input__suffix {
+    display: none;
+  }
+  .el-input__inner {
+    width: 250px;
+    padding-right: 10px;
+  }
 }

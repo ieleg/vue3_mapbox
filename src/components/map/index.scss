@@ -12,11 +12,13 @@ a.mapboxgl-ctrl-logo,
 }
 #instructions {
   position: absolute;
+  padding: 15px;
   margin: 20px;
-  top: 50px;
+  bottom: 0px;
   height: 500px;
-  width: 150px;
-  background-color: #fff;
+  width: 300px;
+  background-color: rgb(14, 2, 2, .6);
+  color: #fff;
   overflow-y: auto;
   font-family: sans-serif;
   z-index: 90;
