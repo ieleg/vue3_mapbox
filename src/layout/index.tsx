@@ -18,7 +18,7 @@ export default defineComponent({
             <SideBar />
           </el-aside>
           <el-container style="height: 100%; position: relative">
-            <el-header>Header</el-header>
+            {/* <el-header>Header</el-header> */}
             {/* <Map style="z-index: 991;position: absolute" /> */}
             <el-main>
               <RouterView />
