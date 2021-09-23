@@ -5,9 +5,10 @@ import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css"
 import MapboxDraw from "@mapbox/mapbox-gl-draw"
 import MiniMap from "@/plugin/miniMap"
 import useRequset from "@/composition/useRequest"
+import turf from "turf"
 // import LngLat from "@/plugin/LngLat"
 
-import { defineComponent, onMounted, ref, reactive, watch} from "vue"
+import { defineComponent, onMounted, ref, reactive, watch } from "vue"
 import { useStore } from "vuex"
 import "./index.scss"
 export default defineComponent({
@@ -21,7 +22,8 @@ export default defineComponent({
     const map = ref(null)
     const walkInfo = reactive({
       steps: [],
-      time: ""
+      time: "",
+      total: ""
     })
     const { data, get } = useRequset()
     const store = useStore()
@@ -66,6 +68,7 @@ export default defineComponent({
         const route = data.value.routes[0].geometry.coordinates
         walkInfo.steps = data.value.routes[0].legs[0].steps
         walkInfo.time = Math.floor(data.value.routes[0].duration / 60)
+        walkInfo.total = getDistance(route)
         const geojson = {
           type: "Feature",
           properties: {},
@@ -231,21 +234,57 @@ export default defineComponent({
             }
           })
         }
-        context.emit('getPos', coords)
+        context.emit("getPos", coords)
         getRoute(coords, mapApp)
       })
       map.value = mapApp
     })
+    const getLength = (str: string): number => {
+      const reg = /^[\u4e00-\u9fa5]+$/;
+      let num = 0
+      for (let i of str) {
+        if (reg.test(i)) {
+          num += 2
+        } else {
+          num += 1
+        }
+      }
+      return num + 1
+    }
+    const getDistance = (lines: Array<[number, number]>): string => {
+      let distance = ''
+      const line = turf.lineString(lines)
+      console.log(turf.length);
+      
+      const len = turf.lineDistance(line)
+
+      if (len < 1) {
+        distance = Math.round(len * 1000) + 'm';
+      } else {
+        distance = len.toFixed(2) + 'km';
+      }
+      return "路径总长度为" + distance
+    }
     return () => (
       <>
         <div id="map-app"></div>
-        <div id="instructions">
-          {walkInfo.time &&
-            walkInfo.steps.map(item => {
-              return <div>{item.maneuver.instruction}</div>
+        {walkInfo.time > 0 && (
+          <div id="instructions">
+            {walkInfo.steps.map(item => {
+              return (
+                <div
+                  key={item.name}
+                  style={{ width: `${getLength(item.maneuver.instruction)}ch` }}
+                >
+                  {item.maneuver.instruction}
+                </div>
+              )
             })}
-          <div>{walkInfo.time}</div>
-        </div>
+            <div style={{ width: `${getLength(walkInfo.total)}ch` }}>
+              {walkInfo.total}
+            </div>
+          </div>
+        )}
       </>
     )
   }

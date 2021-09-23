@@ -16,19 +16,35 @@ a.mapboxgl-ctrl-logo,
   position: absolute;
   z-index: 90;
   bottom: 0;
-  width: 300px;
+  width: 450px;
   height: 500px;
   padding: 15px;
   margin: 20px;
   background-color: rgb(14, 2, 2, .6);
+  border-radius: 20px;
   color: #fff;
-  font-family: sans-serif;
   overflow-y: auto;
-  transition: all .3s;
 
   & > div {
-    height: 60px;
+    overflow: hidden;
+    width: 25ch;
     padding: 0;
+    animation: typing .5s steps(22), blink 1s infinite alternate;
+    font-family: monospace;
+    font-size: 1.3em;
     text-align: left;
+    white-space: nowrap;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
   }
 }
