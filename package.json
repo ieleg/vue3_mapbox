@@ -12,6 +12,7 @@
     "axios": "^0.21.4",
     "element-plus": "^1.1.0-beta.1",
     "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
     "lodash-es": "^4.17.21",
     "mapbox-gl": "^2.0.0",
     "turf": "^3.0.14",
@@ -52,7 +53,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,vue}": ["prettier --write", "eslint --cache --fix", "git add"]
+    "src/**/*.{js,vue}": [
+      "prettier --write",
+      "eslint --cache --fix",
+      "git add"
+    ]
   },
   "license": "MIT"
 }
