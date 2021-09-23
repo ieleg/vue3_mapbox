@@ -8,6 +8,7 @@ body {
   height: 100%;
   margin: 0;
 }
+
 html,
 body,
 div,
@@ -89,37 +90,53 @@ time,
 mark,
 audio,
 video {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", SimSun, sans-serif;
   padding: 0;
   margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Helvetica,
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    SimSun,
+    sans-serif;
 }
+
 body {
   font-size: 12px;
 }
+
 li {
+  display: block;
   text-decoration: none;
   user-select: none;
-  display: block;
 }
+
 a {
-  text-decoration: none;
-  font-size: 12px;
   cursor: pointer;
+  font-size: 12px;
+  text-decoration: none;
 }
+
 a.underline {
-  text-decoration: underline;
   color: #778092;
+  text-decoration: underline;
 }
+
 h1 {
   font-size: 18px;
   font-weight: bold;
 }
+
 h2 {
   font-size: 14px;
   font-weight: bold;
 }
+
 h3 {
   font-size: 12px;
   font-weight: bold;

@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vuedx-typecheck . && vite build"
+    "build": "vuedx-typecheck . && vite build",
+    "stylelint:fix": "stylelint --fix **/*.{scss,vue}",
+    "stylelint": "stylelint **/*.{scss,vue}"
   },
   "dependencies": {
     "element-plus": "latest",
@@ -31,6 +33,12 @@
     "sass": "^1.32.11",
     "typescript": "^4.2.4",
     "vite": "2.2.1",
-    "vue-eslint-parser": "^7.6.0"
+    "vue-eslint-parser": "^7.6.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-idiomatic-order": "^8.1.0",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-config-standard-scss": "^1.1.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.20.1"
   }
 }
