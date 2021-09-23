@@ -28,11 +28,11 @@
   // position: absolute;
   // top: 50%;
   // transform: translateY(50%);
-  width: 200px;
   background-color: rgb(48, 65, 86);
   line-height: 200px;
   overflow-x: hidden;
   text-align: center;
+  width: 200px;
 
   &::-webkit-scrollbar {
     width: 6px;
