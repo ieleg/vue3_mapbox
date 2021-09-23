@@ -15,7 +15,7 @@ const http = axios.create({
   timeout: 1000 * 60
 })
 
-const get = async (url: string, params: Record<string, any>) => {
+const httpGet = async (url: string, params: Record<string, any>) => {
   state.loading = true
   const res = await http({
     method: "GET",
@@ -26,7 +26,7 @@ const get = async (url: string, params: Record<string, any>) => {
   state.data = res.data
 }
 
-const post = async (url: string, params: Record<string, any>) => {
+const httPost = async (url: string, params: Record<string, any>) => {
   state.loading = true
   const res = await http({
     method: "GET",
@@ -42,8 +42,8 @@ export default function () {
 
   return {
     ...toRefs(state),
-    get,
-    post
+    httpGet,
+    httPost
   }
 }
 
