@@ -13,11 +13,6 @@ const routes: RouteRecordRaw[] = [
       }
     ]
   },
-  {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About")
-  }
 ]
 
 const router = createRouter({

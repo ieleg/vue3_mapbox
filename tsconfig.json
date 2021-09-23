@@ -14,6 +14,15 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }],
-    "allowJs": true
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "assets/*": ["src/assets/*"],
+      "views/*": ["src/views/*"],
+      "common/*": ["src/common/*"]
+    }
   }
 }

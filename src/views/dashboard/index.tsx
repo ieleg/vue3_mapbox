@@ -26,7 +26,9 @@ export default defineComponent({
         //使响应偏向于更接近此位置的结果
         proximity: center
       })
-      state.results = data.value.features
+      if (data.value) {
+        state.results = data.value.features
+      }
       state.loading = false
     }
     const getPosReverse = async (e: [number, number]) => {
@@ -34,9 +36,11 @@ export default defineComponent({
         language: "zh",
         access_token: token,
         worldview: "cn",
-        country: "cn",
+        country: "cn"
       })
-      state.inputs = data.value.features[0].place_name.slice(7)
+      if (data.value) {
+        state.inputs = data.value.features[0].place_name.slice(7)
+      }
     }
     const remoteMethod = async (query: string) => {
       if (query) {
