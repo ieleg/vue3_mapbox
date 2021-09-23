@@ -25,7 +25,7 @@ export default defineComponent({
       time: "",
       total: ""
     })
-    const { data, get } = useRequset()
+    const { data, httpGet } = useRequset()
     const store = useStore()
     const { token, center } = store.state
     const start: [number, number] = [120.20305951013802, 30.186618156061]
@@ -57,7 +57,7 @@ export default defineComponent({
     const getRoute = async (end: [number, number], map: any) => {
       console.log("end", end)
 
-      await get(`${api.map.route}${start[0]},${start[1]};${end[0]},${end[1]}`, {
+      await httpGet(`${api.map.route}${start[0]},${start[1]};${end[0]},${end[1]}`, {
         geometries: "geojson",
         access_token: token,
         steps: true
