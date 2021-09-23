@@ -5,7 +5,8 @@
     "dev": "vite",
     "build": "vuedx-typecheck . && vite build",
     "stylelint:fix": "stylelint --fix **/*.{scss,vue}",
-    "stylelint": "stylelint **/*.{scss,vue}"
+    "stylelint": "stylelint **/*.{scss,vue}",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.2.0",
@@ -51,13 +52,6 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "lint-staged": {
-    "src/**/*.{js,vue}": [
-      "prettier --write",
-      "eslint --cache --fix",
-      "git add"
-    ]
   },
   "license": "MIT"
 }

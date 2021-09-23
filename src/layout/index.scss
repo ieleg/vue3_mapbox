@@ -24,6 +24,7 @@
 }
 
 .el-aside {
+  width: 200px;
   // height: 80%;
   // position: absolute;
   // top: 50%;
@@ -32,7 +33,6 @@
   line-height: 200px;
   overflow-x: hidden;
   text-align: center;
-  width: 200px;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -46,7 +46,7 @@
   &::-webkit-scrollbar-thumb {
     background: #3e4b5f;
     border-radius: 2.5px;
-    opacity: .3;
+    opacity: 0.3;
   }
 }
 
