@@ -8,11 +8,11 @@
   transition: .2s;
 
   &-search {
-    position: absolute;
     z-index: 90;
     top: 60px;
     right: 0;
     display: flex;
+    position: absolute;
     width: 600px;
     height: 50px;
     align-items: center;
