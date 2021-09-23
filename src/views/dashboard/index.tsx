@@ -39,7 +39,7 @@ export default defineComponent({
         country: "cn"
       })
       if (data.value) {
-        state.results = get(data.value!, ["features[0].place_name"]).slice(7)
+        state.inputs = get(data.value!, "features[0].place_name").slice(7)
       }
     }
     const remoteMethod = async (query: string) => {
