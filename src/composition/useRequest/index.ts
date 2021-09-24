@@ -26,25 +26,21 @@ const httpGet = async (url: string, params: Record<string, any>) => {
   state.data = res.data
 }
 
-const httPost = async (url: string, params: Record<string, any>) => {
+const httPost = async (url: string, data: any) => {
   state.loading = true
   const res = await http({
     method: "GET",
     url,
-    params: params
+    data
   })
   state.loading = false
   state.data = res.data
 }
 
 export default function () {
-  console.log(123)
-
   return {
     ...toRefs(state),
     httpGet,
     httPost
   }
 }
-
-// export default useRequset
