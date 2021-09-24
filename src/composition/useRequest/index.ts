@@ -1,10 +1,6 @@
-import axios from "axios"
+import axios, { AxiosRequestConfig } from "axios"
 import { reactive, toRefs } from "vue"
 
-const state = reactive({
-  data: null,
-  loading: false
-})
 const baseURL = "/api"
 
 const http = axios.create({
@@ -15,32 +11,26 @@ const http = axios.create({
   timeout: 1000 * 60
 })
 
-const httpGet = async (url: string, params: Record<string, any>) => {
-  state.loading = true
-  const res = await http({
-    method: "GET",
-    url,
-    params: params
+export default (getConfig: () => AxiosRequestConfig) => {
+  const state = reactive({
+    data: null,
+    loading: false
   })
-  state.loading = false
-  state.data = res.data
-}
-
-const httPost = async (url: string, data: any) => {
-  state.loading = true
-  const res = await http({
-    method: "GET",
-    url,
-    data
-  })
-  state.loading = false
-  state.data = res.data
-}
-
-export default function () {
+  const config: AxiosRequestConfig = reactive(getConfig?.() || {})
+  const run = async (customConfig?: AxiosRequestConfig) => {
+    state.loading = true
+    const res = await http({
+      method: config.method ?? "get",
+      url: config.url,
+      [["get", "GET"].indexOf(config.method ?? "") > -1 ? "params" : "data"]:
+        config.data,
+      ...customConfig
+    })
+    state.loading = false
+    state.data = res.data
+  }
   return {
     ...toRefs(state),
-    httpGet,
-    httPost
+    run
   }
 }

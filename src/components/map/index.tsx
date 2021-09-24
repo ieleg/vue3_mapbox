@@ -18,6 +18,7 @@ export default defineComponent({
       default: () => []
     }
   },
+  emits: ["getPos"],
   setup(props, context) {
     const map = ref(null)
     const walkInfo = reactive({
@@ -25,7 +26,7 @@ export default defineComponent({
       time: "",
       total: ""
     })
-    const { data, httpGet } = useRequset()
+    const { data, run } = useRequset()
     const store = useStore()
     const { token, center } = store.state
     const start: [number, number] = [120.20305951013802, 30.186618156061]
@@ -56,15 +57,14 @@ export default defineComponent({
     }
     const getRoute = async (end: [number, number], map: any) => {
       console.log("end", end)
-
-      await httpGet(
-        `${api.map.route}${start[0]},${start[1]};${end[0]},${end[1]}`,
-        {
+      await run({
+        url: `${api.map.route}${start[0]},${start[1]};${end[0]},${end[1]}`,
+        params: {
           geometries: "geojson",
           access_token: token,
           steps: true
         }
-      )
+      })
       console.log(data.value)
 
       if (data.value.code === "Ok") {
@@ -260,8 +260,6 @@ export default defineComponent({
     const getDistance = (lines: Array<[number, number]>): string => {
       let distance = ""
       const line = turf.lineString(lines)
-      console.log(turf.length)
-
       const len = turf.lineDistance(line)
 
       if (len < 1) {
