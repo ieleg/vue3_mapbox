@@ -57,11 +57,14 @@ export default defineComponent({
     const getRoute = async (end: [number, number], map: any) => {
       console.log("end", end)
 
-      await httpGet(`${api.map.route}${start[0]},${start[1]};${end[0]},${end[1]}`, {
-        geometries: "geojson",
-        access_token: token,
-        steps: true
-      })
+      await httpGet(
+        `${api.map.route}${start[0]},${start[1]};${end[0]},${end[1]}`,
+        {
+          geometries: "geojson",
+          access_token: token,
+          steps: true
+        }
+      )
       console.log(data.value)
 
       if (data.value.code === "Ok") {
@@ -84,6 +87,7 @@ export default defineComponent({
       () => props.endPos,
       val => {
         getRoute(val, map.value)
+        map.value.panTo(val, { duration: 5000 })
       }
     )
     const getPos = () => {}
@@ -240,7 +244,7 @@ export default defineComponent({
       map.value = mapApp
     })
     const getLength = (str: string): number => {
-      const reg = /^[\u4e00-\u9fa5]+$/;
+      const reg = /^[\u4e00-\u9fa5]+$/
       let num = 0
       for (let i of str) {
         if (reg.test(i)) {
@@ -252,16 +256,16 @@ export default defineComponent({
       return num + 1
     }
     const getDistance = (lines: Array<[number, number]>): string => {
-      let distance = ''
+      let distance = ""
       const line = turf.lineString(lines)
-      console.log(turf.length);
-      
+      console.log(turf.length)
+
       const len = turf.lineDistance(line)
 
       if (len < 1) {
-        distance = Math.round(len * 1000) + 'm';
+        distance = Math.round(len * 1000) + "m"
       } else {
-        distance = len.toFixed(2) + 'km';
+        distance = len.toFixed(2) + "km"
       }
       return "路径总长度为" + distance
     }
