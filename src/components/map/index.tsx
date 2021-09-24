@@ -86,8 +86,10 @@ export default defineComponent({
     watch(
       () => props.endPos,
       val => {
-        getRoute(val, map.value)
-        map.value.panTo(val, { duration: 5000 })
+        if (Array.isArray(val)) {
+          getRoute(val, map.value)
+          map.value.panTo(val, { duration: 5000 })
+        }
       }
     )
     const getPos = () => {}
