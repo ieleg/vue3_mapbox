@@ -120,7 +120,7 @@ const Child = defineComponent({
 const Parent = defineComponent({
   setup(props, context) {
     return () => (
-      <Child v-slots={{default: () => '我是default'}}></Parent>
+      <Child v-slots={{default: () => '我是default'}}></Child>
     )
   }
 })
