@@ -8,14 +8,14 @@ import useRequset from "@/composition/useRequest"
 import turf from "turf"
 // import LngLat from "@/plugin/LngLat"
 
-import { defineComponent, onMounted, ref, reactive, watch } from "vue"
+import { defineComponent, onMounted, ref, reactive, watch, PropType } from "vue"
 import { useStore } from "vuex"
 import "./index.scss"
+type EndPosType = PropType<[number, number]>
 export default defineComponent({
   props: {
     endPos: {
-      type: Array as [number, number],
-      default: () => []
+      type: [Array as EndPosType, String]
     }
   },
   emits: ["getPos"],
@@ -277,7 +277,6 @@ export default defineComponent({
             {walkInfo.steps.map(item => {
               return (
                 <div
-                  key={item.name}
                   style={{ width: `${getLength(item.maneuver.instruction)}ch` }}
                 >
                   {item.maneuver.instruction}
