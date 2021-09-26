@@ -10,11 +10,11 @@
 
 固定地图初始位置，点击地图任意一点可以导出一条路径：
 
-![](F:\vue3_mapbox\.readme\map.gif)
+![](./.readme/map.gif)
 
 输入框输入关键词选择后以该点导出一条路径：
 
-<img src="F:\vue3_mapbox\.readme\map2.gif"/>
+<img src="./.readme/map2.gif"/>
 
 ### 接口封装
 
