@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios"
-import { reactive, toRefs } from "vue"
+import { reactive, toRefs, watch } from "vue"
 
 const baseURL = "/api"
 
@@ -17,6 +17,9 @@ export default (getConfig: () => AxiosRequestConfig) => {
     loading: false
   })
   const config: AxiosRequestConfig = reactive(getConfig?.() || {})
+  watch(getConfig, val => {
+    Object.assign(config, { ...val })
+  })
   const run = async (customConfig?: AxiosRequestConfig) => {
     state.loading = true
     const res = await http({
