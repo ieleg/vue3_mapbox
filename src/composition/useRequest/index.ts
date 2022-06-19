@@ -1,11 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios"
 import { reactive, toRefs, watch } from "vue"
-console.log(import.meta.env)
-
-const baseURL = "/api"
+const baseURL = import.meta.env.VITE_APP_BASE_API
 
 const http = axios.create({
-  withCredentials: true,
+  // withCredentials: true,
   //@ts-ignore
   crossDomain: true,
   baseURL: baseURL,
