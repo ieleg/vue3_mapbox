@@ -7,6 +7,7 @@ const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr)
 }
 module.exports = defineConfig({
+  base: "./",
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
@@ -16,7 +17,6 @@ module.exports = defineConfig({
   server: {
     port: 3333,
     open: false, //自动打开
-    base: "/vue3_mapbox/", //生产环境路径
     proxy: {
       "/api": {
         target: "https://api.mapbox.com", // 后端服务实际地址

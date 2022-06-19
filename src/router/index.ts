@@ -12,11 +12,11 @@ const routes: RouteRecordRaw[] = [
         name: "dashboard"
       }
     ]
-  },
+  }
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory("/vue3_mapbox/"),
   routes
 })
 

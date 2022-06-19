@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios"
 import { reactive, toRefs, watch } from "vue"
+console.log(import.meta.env)
 
 const baseURL = "/api"
 
